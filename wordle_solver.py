@@ -95,11 +95,24 @@ class Wordle:
             if 'E' in self.words_df['Word'][i] and 'A' in self.words_df['Word'][i] and 'R' in self.words_df['Word'][i] and 'I' in self.words_df['Word'][i] and 'O' in self.words_df['Word'][i]:
                 self.eario_lst.append(self.words_df['Word'][i])
 
+        '''Word Template'''
+        self.word_template = {
+            0: '_',
+            1: '_',
+            2: '_',
+            3: '_',
+            4: '_'
+        }
+        self.word_temp = [self.word_template[i] for i in range(0, len(self.word_template))]
+        self.word = ' '.join(self.word_temp)
+
     def play_one(self):
         print("The game of Wordle for " + str(self.date))
         print('Guess #1 is ' + str(self.guess) + ' or a word with the letters ' + str(self.words_list[0:5]))
         self.attempts -= 1
         self.words_df
+        self.words2.remove(''.join(self.guess))
+        print('You have made ' + str(5 - self.attempts) + ' attempts.')
 
     def play_two(self, yellow_letter, green_letter, grey_letters, word_attempted):
         for i in range(0, len(yellow_letter)):
@@ -107,12 +120,37 @@ class Wordle:
         for i in range(0, len(grey_letters)):
             self.grey_letters_list.append(grey_letters[i])
             self.words_list.remove(grey_letters[i])
-        for i in range(0, len(green_letter)):
-            self.green_letters_list.append(green_letter[i])
         lst = []
         for i in range(0, len(word_attempted)):
             lst.append(word_attempted[i])
         print(self.yellow_letters_list)
-        print(self.green_letters_list)
         print(self.grey_letters_list)
         print(self.words_list)
+
+        self.words2.remove(word_attempted)
+
+        self.attempts -= 1
+        print('You have made ' + str(5 - self.attempts) + 'attempts.')
+
+        '''Update the word'''
+        if len(green_letter) == 1:
+            self.word_temp[list(green_letter.keys())[0]
+                           ] = green_letter[list(green_letter.keys())[0]]
+
+        '''Print the word'''
+        print('Your word so far is ' + str(self.word))
+        print('Words that are out of place are ' + str(self.yellow_letters_list))
+        print('The letters: ' + str(self.grey_letters_list) + 'are not in the word.')
+        print('You have used the words: ' + str(lst))
+
+    def play_three(self, yellow_letter, green_letter, grey_letters, word_attempted):
+        pass
+
+    def play_four(self, yellow_letter, green_letter, grey_letters, word_attempted):
+        pass
+
+    def play_fifth(self, yellow_letter, green_letter, grey_letters, word_attempted):
+        pass
+
+    def play_six(self, yellow_letter, green_letter, grey_letters, word_attempted):
+        pass
