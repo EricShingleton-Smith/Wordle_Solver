@@ -119,8 +119,9 @@ class Wordle:
             self.yellow_letters_list.append(yellow_letter[i])
         for i in range(0, len(grey_letters)):
             self.grey_letters_list.append(grey_letters[i])
-            self.words_list.remove(grey_letters[i])
         lst = []
+        for i in range(0, len(self.grey_letters_list)):
+            self.words_list.remove(self.grey_letters_list[i])
         for i in range(0, len(word_attempted)):
             lst.append(word_attempted[i])
         print(self.yellow_letters_list)
@@ -130,12 +131,23 @@ class Wordle:
         self.words2.remove(word_attempted)
 
         self.attempts -= 1
-        print('You have made ' + str(5 - self.attempts) + 'attempts.')
+        print('You have made ' + str(5 - self.attempts) + ' attempts.')
 
         '''Update the word'''
         if len(green_letter) == 1:
             self.word_temp[list(green_letter.keys())[0]
                            ] = green_letter[list(green_letter.keys())[0]]
+
+        '''Potential words based on yellow_letters'''
+        potential_words = []
+        for i in range(0, len(self.words)):
+            for e in range(0, len(yellow_letter)):
+                count = 0
+                if yellow_letter[e] in self.words[i]:
+                    count += 1
+            if count == len(yellow_letter):
+                potential_words.append(self.words[i])
+
 
         '''Print the word'''
         print('Your word so far is ' + str(self.word))
@@ -144,7 +156,35 @@ class Wordle:
         print('You have used the words: ' + str(lst))
 
     def play_three(self, yellow_letter, green_letter, grey_letters, word_attempted):
-        pass
+        for i in range(0, len(yellow_letter)):
+            self.yellow_letters_list.append(yellow_letter[i])
+        for i in range(0, len(grey_letters)):
+            self.grey_letters_list.append(grey_letters[i])
+        lst = []
+        for i in range(0, len(self.grey_letters_list)):
+            self.words_list.remove(self.grey_letters_list[i])
+        for i in range(0, len(word_attempted)):
+            lst.append(word_attempted[i])
+        print(self.yellow_letters_list)
+        print(self.grey_letters_list)
+        print(self.words_list)
+
+        self.words2.remove(word_attempted)
+
+        self.attempts -= 1
+        print('You have made ' + str(5 - self.attempts) + ' attempts.')
+
+        '''Update the word'''
+        if len(green_letter) == 1:
+            self.word_temp[list(green_letter.keys())[0]
+                           ] = green_letter[list(green_letter.keys())[0]]
+
+        '''Print the word'''
+        print('Your word so far is ' + str(self.word))
+        print('Words that are out of place are ' +
+              str(self.yellow_letters_list))
+        print('The letters: ' + str(self.grey_letters_list) + 'are not in the word.')
+        print('You have used the words: ' + str(lst))
 
     def play_four(self, yellow_letter, green_letter, grey_letters, word_attempted):
         pass
