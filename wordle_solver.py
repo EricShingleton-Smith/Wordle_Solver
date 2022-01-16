@@ -10,7 +10,7 @@ class Wordle:
 
     def __init__(self):
         self.date = date.today()
-        self.mc_letter = {
+        self.words_list = {
             'E': .111607,
             'A': .84966,
             'R': .75809,
@@ -71,7 +71,7 @@ class Wordle:
 
         self.attempts = 5
         self.guess = self.most_likely_word[random.randint(0, len(self.most_likely_word))]
-        self.words_list = list(self.mc_letter.keys())
+        self.words_list = list(self.words_list.keys())
         self.yellow_letters_list = []
         self.grey_letters_list = []
         self.green_letters_list = []
@@ -109,6 +109,7 @@ class Wordle:
     def play_one(self):
         print("The game of Wordle for " + str(self.date))
         print('Guess #1 is ' + str(self.guess) + ' or a word with the letters ' + str(self.words_list[0:5]))
+        print('Here are the most common letters in descending order' + str(self.words_list))
         self.attempts -= 1
         self.words_df
         self.words2.remove(''.join(self.guess))
@@ -138,21 +139,25 @@ class Wordle:
             self.word_temp[list(green_letter.keys())[0]
                            ] = green_letter[list(green_letter.keys())[0]]
 
-        '''Potential words based on yellow_letters'''
-        potential_words = []
-        for i in range(0, len(self.words)):
-            for e in range(0, len(yellow_letter)):
-                count = 0
-                if yellow_letter[e] in self.words[i]:
-                    count += 1
-            if count == len(yellow_letter):
-                potential_words.append(self.words[i])
+        '''Potential words based on yellow_letters and no green letters'''
+        if len(green_letter) == 0 and len(yellow_letter) != 0:
+            potential_words = []
+            for i in range(0, len(self.words2)):
+                count = len(yellow_letter)
+                if self.words_list[count] not in ''.join(self.words2):
+                    print('Letter ' + str(self.words_list[count]) +
+                        ' not present in any potential words.')
+                    break
+                if self.words_list[count] in self.words2[i]:
+                    potential_words.append(self.words2[i])
+            print('Potential words with the letters ' + str(yellow_letter) + ', '
+                + str(self.words_list[count]) + 'are ' + str(potential_words))
 
 
         '''Print the word'''
         print('Your word so far is ' + str(self.word))
         print('Words that are out of place are ' + str(self.yellow_letters_list))
-        print('The letters: ' + str(self.grey_letters_list) + 'are not in the word.')
+        print('The letters: ' + str(self.grey_letters_list) + ' are not in the word.')
         print('You have used the words: ' + str(lst))
 
     def play_three(self, yellow_letter, green_letter, grey_letters, word_attempted):
