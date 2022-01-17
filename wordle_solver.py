@@ -176,6 +176,12 @@ class Wordle:
             if count == len(yellow_letter):
                 potential_words_yellow.append(potential_words_green[i])
 
+        '''Remove Grey Letters'''
+        for i in range(0, len(potential_words_yellow)):
+            for e in range(0, len(grey_letter)):
+                if grey_letter[e] in potential_words_yellow[i]:
+                    potential_words_yellow.remove(potential_words_yellow[i])
+
         '''Print the word'''
         print('Your word so far is ' + str(self.word))
         print('Words that are out of place are ' + str(self.yellow_letters_list))
