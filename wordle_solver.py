@@ -142,8 +142,8 @@ class Wordle:
         '''Potential words based on yellow_letters and no green letters'''
         if len(green_letter) == 0 and len(yellow_letter) != 0:
             potential_words = []
+            count = len(yellow_letter)
             for i in range(0, len(self.words2)):
-                count = len(yellow_letter)
                 if self.words_list[count] not in ''.join(self.words2):
                     print('Letter ' + str(self.words_list[count]) +
                         ' not present in any potential words.')
@@ -153,6 +153,31 @@ class Wordle:
             print('Potential words with the letters ' + str(yellow_letter) + ', '
                 + str(self.words_list[count]) + 'are ' + str(potential_words))
 
+        '''Find potential words based on placements of green letters'''
+        word_temp2 = ''.join([green_letter[i]
+                              for i in range(0, len(green_letter))])
+        potential_words_green = []
+        for i in range(0, len(self.words2)):
+            count = 0
+            for e in range(0, len(green_letter)):
+                if green_letter[e] == '':
+                    continue
+                if green_letter[e] == self.words2[i][e]:
+                    count += 1
+            if count == len(self.word_temp2):
+                potential_words_green.append(self.words2[i])
+
+        '''Find words that yellow letters fit in with green letters'''
+        yellow_letter = 'ENY'
+
+        potential_words_yellow = []
+        for i in range(0, len(potential_words_green)):
+            count = 0
+            for e in range(0, len(yellow_letter)):
+                if yellow_letter[e] in potential_words_green[i]:
+                    count += 1
+            if count == len(yellow_letter):
+                potential_words_yellow.append(potential_words_green[i])
 
         '''Print the word'''
         print('Your word so far is ' + str(self.word))
