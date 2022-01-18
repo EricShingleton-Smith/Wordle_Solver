@@ -70,7 +70,6 @@ class Wordle:
         ]
 
         self.attempts = 5
-        self.guess = self.most_likely_word[random.randint(0, len(self.most_likely_word))]
         self.words_list = list(self.words_list.keys())
         self.yellow_letters_list = []
         self.grey_letters_list = []
@@ -94,6 +93,9 @@ class Wordle:
                 self.eari_lst.append(self.words_df['Word'][i])
             if 'E' in self.words_df['Word'][i] and 'A' in self.words_df['Word'][i] and 'R' in self.words_df['Word'][i] and 'I' in self.words_df['Word'][i] and 'O' in self.words_df['Word'][i]:
                 self.eario_lst.append(self.words_df['Word'][i])
+
+        self.guess = self.eari_lst[random.randint(
+            0, len(self.eari_lst))]
 
         '''Word Template'''
         self.word_template = {
@@ -129,7 +131,7 @@ class Wordle:
         print(self.grey_letters_list)
         print(self.words_list)
 
-        self.words2.remove(word_attempted)
+        'self.words2.remove(word_attempted)'
 
         self.attempts -= 1
         print('You have made ' + str(5 - self.attempts) + ' attempts.')
