@@ -153,12 +153,11 @@ class Wordle:
              + 'are ' + str(potential_words))
 
         '''Find potential words based on placements of green letters'''
-        word_temp2 = ''.join([green_letter[i]
-                              for i in range(0, len(green_letter))])
+        word_temp2 = ''.join([green_letter[i] for i in green_letter])
         potential_words_green = []
         for i in range(0, len(self.words2)):
             count = 0
-            for e in range(0, len(green_letter)):
+            for e in green_letter:
                 if green_letter[e] == '':
                     continue
                 if green_letter[e] == self.words2[i][e]:
@@ -177,16 +176,21 @@ class Wordle:
                 potential_words_yellow.append(potential_words_green[i])
 
         '''Remove Grey Letters'''
+        potential_words2 = []
         for i in range(0, len(potential_words_yellow)):
-            for e in range(0, len(grey_letter)):
-                if grey_letter[e] in potential_words_yellow[i]:
-                    potential_words_yellow.remove(potential_words_yellow[i])
+            count = 0
+            for e in range(0, len(grey_letters)):
+                if grey_letters[e] in potential_words_yellow[i]:
+                    count += 1
+            if count == 0:
+                potential_words2.append(potential_words_yellow[i])
 
         '''Print the word'''
         print('Your word so far is ' + str(self.word))
         print('Words that are out of place are ' + str(self.yellow_letters_list))
         print('The letters: ' + str(self.grey_letters_list) + ' are not in the word.')
         print('You have used the words: ' + str(lst))
+        print('Potential words are: ' + str(potential_words2))
 
     def play_three(self, yellow_letter, green_letter, grey_letters, word_attempted):
         for i in range(0, len(yellow_letter)):
