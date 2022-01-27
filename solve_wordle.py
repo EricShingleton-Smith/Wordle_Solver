@@ -224,5 +224,6 @@ def play_again(yellow_letter, green_letter, grey_letters, word_attempted):
               str(yellow_letters_list))
         print('The letters: ' + str(grey_letters_list) +
               ' are not in the word.')
+        print('The letters available are ' + str(most_common_letters))
         print('You have used the words: ' + str(lst))
         print('Potential words are: ' + str(potential_words_yellow))
