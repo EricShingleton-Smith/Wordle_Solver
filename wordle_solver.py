@@ -233,3 +233,4 @@ class Wordle:
 
     def play_six(self, yellow_letter, green_letter, grey_letters, word_attempted):
         pass
+
